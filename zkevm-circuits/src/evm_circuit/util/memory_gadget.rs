@@ -30,6 +30,9 @@ use halo2_proofs::{
 };
 use itertools::Itertools;
 
+#[cfg(test)]
+mod test_util;
+
 /// Decodes the usable part of an address stored in a Word
 pub(crate) mod address_low {
     use crate::evm_circuit::param::N_BYTES_MEMORY_ADDRESS;
@@ -685,4 +688,14 @@ impl<F: Field, const MAX_BYTES: usize, const ADDR_SIZE_IN_BYTES: usize>
     pub(crate) fn read_flag(&self, idx: usize) -> Expression<F> {
         self.selectors[idx].expr()
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{test_util::*, *};
+    use crate::evm_circuit::util::{
+        constraint_builder::ConstrainBuilderCommon, CachedRegion, Cell,
+    };
+    use eth_types::*;
+    use halo2_proofs::{halo2curves::bn256::Fr, plonk::Error};
 }
